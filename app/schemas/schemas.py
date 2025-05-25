@@ -1,7 +1,19 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List
 
-# === ITEM ===
+class UserBase(BaseModel):
+    username: str
+
+class UserCreate(UserBase):
+    password: str
+
+class User(UserBase):
+    id: int
+    items: List['Item'] = []
+
+    class Config:
+        orm_mode = True
+
 class ItemBase(BaseModel):
     name: str
 
@@ -11,20 +23,6 @@ class ItemCreate(ItemBase):
 class Item(ItemBase):
     id: int
     owner_id: int
-
-    class Config:
-        orm_mode = True
-
-# === USER ===
-class UserBase(BaseModel):
-    username: str
-
-class UserCreate(UserBase):
-    password: str
-
-class User(UserBase):
-    id: int
-    items: List[Item] = []
 
     class Config:
         orm_mode = True

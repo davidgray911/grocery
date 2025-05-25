@@ -13,3 +13,6 @@ app.include_router(items.router, prefix="/items", tags=["Items"])
 @app.get("/")
 def read_root():
     return {"message": "Hello, this is the Grocery API!"}
+from app.routers import auth
+
+app.include_router(auth.router)
